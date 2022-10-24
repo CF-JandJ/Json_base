@@ -1,0 +1,87 @@
+{
+  "Model": {
+    "Mesh": {
+      "Type": "EasyMesh",
+      "File": "rae2822_fine.emesh"
+    },
+
+    "Material": {
+      "Type": "Ideal Gas",
+      "Name": "Air",
+      "Molecular Weight": 28.9647,
+      "Specified Heat Ratio": 1.4
+    },
+
+    "Boundary Conditions": {
+      "Wall": {
+        "Type": "Wall",
+        "Patches": [ 1 ],
+        "Isothermal": false,
+        "HeatFlux": 0.0
+      },
+      "Farfield": {
+        "Type": "Farfield",
+        "Patches": [ 2 ],
+        "Mach": 0.729,
+        "AoA": 2.31,
+        "Beta": 0.0
+      }
+    },
+
+    "Initial Condition": {
+      "Type": "From BC",
+      "BC": "Farfield",
+      "Results File": ""
+    },
+
+    "Solution Control": {
+      "Type": "Steady",
+      "Convective Flux": {
+        "Type": "Roe",
+        "Entropy Correction Factor": 0.05
+      },
+      "Spatial Order": 2,
+      "Gradient Algorithm": {
+        "Type": "Least Square"
+      },
+      "Reconstruct Algorithm": {
+        "Type": "Piecewise Linear",
+        "Limiter Function": {
+          "Type": "B-J"
+        }
+      },
+      "Time Integration": {
+        "Type": "EquSol",
+        "Order": 1,
+        "CFL": 5,
+        "Iteration Number": 15000,
+        "Absolute Tolerance": 0.0000006,
+        "Relative Tolerance": 0.0000006,
+        "Overrelaxation": 1.2,
+        "Start CFL": 1,
+        "Iter of Max CFL": 1000
+      },
+      "Reference State": {
+        "Pressure": 108991.6093,
+        "Temperature": 255.55,
+        "Length": 1.0
+      }
+    },
+    "Monitor": {
+      "Force": {
+        "Type": [ "" ],
+        "Patches": [ 1 ]
+      },
+      "Primitive": {
+        "Type": [ "Density" ],
+        "Cell": [ 100 ]
+      }
+    },
+    "Output Control": {
+      "Variables": [ "Default" ],
+      "Interval": 0,
+      "Time Points": [],
+      "Include Mesh": true
+    }
+  }
+}
